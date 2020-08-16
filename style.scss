@@ -1,0 +1,36 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: #fff;
+  font-size: 1.7rem;
+}
+
+.title {
+  margin: 5rem auto;
+  text-align: center;
+}
+
+table {
+  text-align: center;
+  margin: 5rem auto;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+button {
+  margin: 0 auto;
+  text-align: center;
+  display: block;
+}
