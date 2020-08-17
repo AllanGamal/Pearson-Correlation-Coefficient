@@ -14,7 +14,10 @@ function addRow() {
   for (let i = 0; i <= rows.length; i++) {
     if (!rows.includes(i)) {
       rows.push(i);
-      cell1.innerHTML = '<input type="text" class="c1">';
+      cell1.innerHTML =
+        '<button id="remove-row-' +
+        i +
+        '" class="remove-row">X</button> <input type="text" class="c1">';
       cell2.innerHTML = "<input type='text' class='c2'>";
 
       row.id = i;

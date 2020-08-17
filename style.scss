@@ -25,12 +25,26 @@ table {
   margin: 5rem auto;
 }
 
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-
-button {
+#add-row {
   margin: 0 auto;
   text-align: center;
   display: block;
+}
+
+.remove-row {
+  border-radius: 50%;
+  width: 1.8rem;
+  height: 1.8rem;
+  border: none;
+  background-color: rgb(236, 53, 53);
+  color: white;
+  transition: all 0.1s;
+
+  &:hover {
+    transform: scale(1.1, 1.1);
+  }
+
+  &:active {
+    transform: scale(0.9, 0.9);
+  }
 }
