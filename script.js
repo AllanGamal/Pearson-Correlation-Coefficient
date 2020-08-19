@@ -33,7 +33,7 @@ function addRow() {
       cell2.appendChild(inputC2);
 
       row.id = i;
-      //
+      // Remove-btn functionallity
       buttonAdd.addEventListener("click", removeBtn);
       break;
     }
@@ -42,7 +42,14 @@ function addRow() {
 
 document.getElementById("add-row").addEventListener("click", addRow);
 
-// Get remove btn class
+// Remove-btn functionallity
 function removeBtn() {
-  console.log(this.className);
+  // Get remove btn class
+
+  let row = this.parentNode.parentNode;
+  let rowId = parseInt(row.id);
+  // Remove row id from array
+  rows.splice(rows.indexOf(rowId));
+  // Remove row
+  row.parentNode.removeChild(row);
 }
