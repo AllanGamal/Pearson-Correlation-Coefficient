@@ -1,5 +1,5 @@
 let rows = [];
-let colums = [0, 1];
+let colums = [];
 
 // Add row and id datapoints
 function addRow() {
@@ -16,20 +16,17 @@ function addRow() {
       // Add remove-btn
       let buttonAdd = document.createElement("button");
       buttonAdd.setAttribute("class", "remove-row");
-      buttonAdd.setAttribute("id", "remove-row-" + i);
       buttonAdd.innerHTML = "X";
       cell1.appendChild(buttonAdd);
 
       // Add input-field c1
       let inputC1 = document.createElement("input");
       inputC1.type = "text";
-      inputC1.setAttribute("class", "c1");
       cell1.appendChild(inputC1);
 
       // Add input-field
       let inputC2 = document.createElement("input");
       inputC2.type = "text";
-      inputC2.setAttribute("class", "c2");
       cell2.appendChild(inputC2);
 
       row.id = i;
@@ -53,3 +50,19 @@ function removeBtn() {
   // Remove row
   row.parentNode.removeChild(row);
 }
+
+// Add functionality to calc-btn
+function data() {
+  let v0 = [];
+  let v1 = [];
+  for (test of rows) {
+    let grandParentNode = document.getElementById(parseFloat(test));
+    let parent = grandParentNode.children;
+    // Data points
+    let dp0 = parent[0].children[1].value;
+    let dp1 = parent[1].children[0].value;
+    v0.push(dp0);
+    v1.push(dp1);
+  }
+}
+document.getElementById("calc").addEventListener("click", data);
