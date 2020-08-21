@@ -21,12 +21,12 @@ function addRow() {
 
       // Add input-field c1
       let inputC1 = document.createElement("input");
-      inputC1.type = "text";
+      inputC1.type = "number";
       cell1.appendChild(inputC1);
 
       // Add input-field
       let inputC2 = document.createElement("input");
-      inputC2.type = "text";
+      inputC2.type = "number";
       cell2.appendChild(inputC2);
 
       row.id = i;
@@ -55,14 +55,65 @@ function removeBtn() {
 function data() {
   let v0 = [];
   let v1 = [];
+
   for (test of rows) {
     let grandParentNode = document.getElementById(parseFloat(test));
     let parent = grandParentNode.children;
     // Data points
     let dp0 = parent[0].children[1].value;
     let dp1 = parent[1].children[0].value;
-    v0.push(dp0);
-    v1.push(dp1);
+    v0.push(parseFloat(dp0));
+    v1.push(parseFloat(dp1));
   }
+
+  // FORMULA => r = SUM( (x - xm)*(y - ym) ) / ( SQR ( SUM(x - xm)sq * SUM(y - ym)sq ) )
+  console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
 }
 document.getElementById("calc").addEventListener("click", data);
+
+//
+
+let corr = [17, 13, 12, 15, 16, 14, 16, 16, 18, 19];
+let att = [94, 73, 59, 80, 93, 85, 66, 79, 77, 91];
+
+let v0 = [1];
+let v1 = [2];
+
+// Calc mean
+function mean(arr) {
+  // xm
+  let count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    count += arr[i];
+  }
+  let mean = count / arr.length;
+  return mean;
+}
+
+// calc upper half of formula
+function firstHalf(arrX, arrY) {
+  let xm = mean(arrX);
+  let ym = mean(arrY);
+  // FORMULA SUM( (x - xm)*(y - ym) )
+  let sumOf = 0;
+  for (let i = 0; i < arrX.length; i++) {
+    sumOf += (arrX[i] - xm) * (arrY[i] - ym);
+  }
+  return sumOf;
+}
+
+// calc lower half of formula
+function secondHalf(arrX, arrY) {
+  let xm = mean(arrX);
+  let ym = mean(arrY);
+  // FORMULA SQ ( SUM(x - xm)sq * SUM(y - ym)sq )
+  let sumOfX = 0;
+  let sumOfY = 0;
+  for (let i = 0; i < arrX.length; i++) {
+    sumOfX += Math.pow(arrX[i] - xm, 2);
+    sumOfY += Math.pow(arrY[i] - ym, 2);
+  }
+  return Math.sqrt(sumOfX * sumOfY);
+}
+
+console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
