@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  background-color: #fff;
+  background-color: #f7f7f7;
   font-size: 1.7rem;
 }
 
@@ -24,10 +24,35 @@ body {
 table {
   text-align: center;
   margin: 5rem auto;
+  background-color: #fff;
+  border-radius: 2rem;
+  background-color: #f0ede5;
+  -webkit-box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.23);
+          box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.23);
+  padding: 2rem;
+  width: 42.4rem;
 }
 
-#add-row {
-  margin: 0 auto;
+table tr:hover > td > .remove-row {
+  visibility: visible;
+}
+
+table tr:nth-child(even) {
+  background-color: #dddad1;
+}
+
+table th {
+  border-bottom: rgba(128, 128, 128, 0.521) solid 2px;
+}
+
+table .dp {
+  font-size: 1.7rem;
+  padding: 1rem;
+}
+
+#add-row,
+#calc {
+  margin: 1rem auto;
   text-align: center;
   display: block;
 }
@@ -39,17 +64,39 @@ table {
   border: none;
   background-color: #ec3535;
   color: white;
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
+  visibility: hidden;
+  position: relative;
+  right: 0.5rem;
+  -webkit-box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.274);
+          box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.274);
 }
 
 .remove-row:hover {
   -webkit-transform: scale(1.1, 1.1);
           transform: scale(1.1, 1.1);
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
 }
 
 .remove-row:active {
   -webkit-transform: scale(0.9, 0.9);
           transform: scale(0.9, 0.9);
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+input {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.7rem;
+  margin: 0 1rem;
+  width: 15rem;
+  background-color: inherit;
+  text-align: center;
+}
+
+.NaN {
+  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
+  box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
 }
 /*# sourceMappingURL=style.css.map */

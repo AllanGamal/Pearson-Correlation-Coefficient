@@ -1,8 +1,8 @@
-let rows = [];
 let colums = [];
+let rows = [];
 
-// Add row and id datapoints
-function addRow() {
+// Function generate rows
+function generateRow() {
   let count;
   let table = document.querySelector("table");
   let row = table.insertRow(1);
@@ -21,38 +21,64 @@ function addRow() {
 
       // Add input-field c1
       let inputC1 = document.createElement("input");
-      inputC1.type = "number";
+      inputC1.type = "text";
       cell1.appendChild(inputC1);
 
       // Add input-field
       let inputC2 = document.createElement("input");
-      inputC2.type = "number";
+      inputC2.type = "text";
       cell2.appendChild(inputC2);
 
       row.id = i;
+
       // Remove-btn functionallity
+
       buttonAdd.addEventListener("click", removeBtn);
+
       break;
     }
   }
 }
 
-document.getElementById("add-row").addEventListener("click", addRow);
+// Generate 3 rows
+for (let i = 0; i < 3; i++) {
+  generateRow();
+}
+
+// Add row and id datapoints
+
+document.getElementById("add-row").addEventListener("click", generateRow);
 
 // Remove-btn functionallity
 function removeBtn() {
-  // Get remove btn class
+  if (rows.length > 3) {
+    // Get remove btn class
+    let row = this.parentNode.parentNode;
+    let rowId = parseInt(row.id);
 
-  let row = this.parentNode.parentNode;
-  let rowId = parseInt(row.id);
-  // Remove row id from array
-  rows.splice(rows.indexOf(rowId));
-  // Remove row
-  row.parentNode.removeChild(row);
+    // Remove row id from array
+
+    rows.splice(rows.indexOf(rowId), 1);
+
+    // Remove row
+    row.parentNode.removeChild(row);
+  }
 }
 
 // Add functionality to calc-btn
-function data() {
+function calc() {
+  let elements = document.getElementsByTagName("input");
+  let test;
+
+  for (element of elements) {
+    let parent = element.parentNode;
+    if (isNaN(element.value) || !element.value) {
+      parent.classList.add("NaN");
+    } else {
+      parent.classList.remove("NaN");
+    }
+  }
+
   let v0 = [];
   let v1 = [];
 
@@ -67,9 +93,13 @@ function data() {
   }
 
   // FORMULA => r = SUM( (x - xm)*(y - ym) ) / ( SQR ( SUM(x - xm)sq * SUM(y - ym)sq ) )
-  console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
+  let result = firstHalf(v0, v1) / secondHalf(v0, v1);
+  if (!isNaN(result)) {
+    console.log(result);
+  }
 }
-document.getElementById("calc").addEventListener("click", data);
+
+document.getElementById("calc").addEventListener("click", calc);
 
 //
 
