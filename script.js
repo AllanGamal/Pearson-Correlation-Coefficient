@@ -89,13 +89,18 @@ function calc() {
     let dp0 = parent[0].children[1].value;
     let dp1 = parent[1].children[0].value;
     v0.push(parseFloat(dp0));
+    //xAxis.push(parseFloat(dp0));
+    xAxis = v0;
     v1.push(parseFloat(dp1));
+    //yAxis.push(parseFloat(dp1))
+    yAxis = v1;
   }
 
   // FORMULA => r = SUM( (x - xm)*(y - ym) ) / ( SQR ( SUM(x - xm)sq * SUM(y - ym)sq ) )
   let result = firstHalf(v0, v1) / secondHalf(v0, v1);
   if (!isNaN(result)) {
     console.log(result);
+    chartIt();
   }
 }
 
@@ -147,3 +152,26 @@ function secondHalf(arrX, arrY) {
 }
 
 console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
+var xAxis = [];
+var yAxis = [];
+
+function chartIt() {
+  const ctx = document.getElementById("chart").getContext("2d");
+  const myChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: xAxis,
+      datasets: [
+        {
+          label: xAxis,
+          data: yAxis,
+          fill: true,
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+          borderColor: "rgba(255, 99, 132, 1)",
+          borderWidth: 1,
+        },
+      ],
+    },
+  });
+}
+chartIt();
