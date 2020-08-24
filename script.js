@@ -1,4 +1,3 @@
-let colums = [];
 let rows = [];
 
 // Function generate rows
@@ -89,18 +88,14 @@ function calc() {
     let dp0 = parent[0].children[1].value;
     let dp1 = parent[1].children[0].value;
     v0.push(parseFloat(dp0));
-    //xAxis.push(parseFloat(dp0));
-    xAxis = v0;
     v1.push(parseFloat(dp1));
-    //yAxis.push(parseFloat(dp1))
-    yAxis = v1;
   }
 
   // FORMULA => r = SUM( (x - xm)*(y - ym) ) / ( SQR ( SUM(x - xm)sq * SUM(y - ym)sq ) )
   let result = firstHalf(v0, v1) / secondHalf(v0, v1);
   if (!isNaN(result)) {
     console.log(result);
-    chartIt();
+    chartIt(convertDataSet(v0, v1));
   }
 }
 
@@ -108,11 +103,8 @@ document.getElementById("calc").addEventListener("click", calc);
 
 //
 
-let corr = [17, 13, 12, 15, 16, 14, 16, 16, 18, 19];
-let att = [94, 73, 59, 80, 93, 85, 66, 79, 77, 91];
-
-let v0 = [1];
-let v1 = [2];
+let v0 = [];
+let v1 = [];
 
 // Calc mean
 function mean(arr) {
@@ -152,26 +144,45 @@ function secondHalf(arrX, arrY) {
 }
 
 console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
-var xAxis = [];
-var yAxis = [];
 
-function chartIt() {
+function chartIt(dataset) {
   const ctx = document.getElementById("chart").getContext("2d");
-  const myChart = new Chart(ctx, {
-    type: "bar",
+  var scatterChart = new Chart(ctx, {
+    type: "scatter",
     data: {
-      labels: xAxis,
       datasets: [
         {
-          label: xAxis,
-          data: yAxis,
-          fill: true,
-          backgroundColor: "rgba(255, 99, 132, 0.2)",
-          borderColor: "rgba(255, 99, 132, 1)",
-          borderWidth: 1,
+          label: "Datapoints",
+          data: dataset,
+          pointBackgroundColor: function () {
+            let color = [];
+            for (let i = 0; i < dataset.length; i++) {
+              color.push("red");
+            }
+            return color;
+          },
         },
       ],
     },
   });
+  options: {
+    scales: {
+      xAxes: [
+        {
+          type: "linear",
+          position: "bottom",
+        },
+      ];
+    }
+  }
 }
 chartIt();
+
+// Function for converting datapoints to dataset the chart accepts!
+function convertDataSet(axesX, axesY) {
+  let dataset = [];
+  for (let i = 0; i < axesX.length; i++) {
+    dataset.push({ x: axesX[i], y: axesY[i] });
+  }
+  return dataset;
+}
