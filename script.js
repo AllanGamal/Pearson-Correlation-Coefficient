@@ -95,7 +95,16 @@ function calc() {
   let result = firstHalf(v0, v1) / secondHalf(v0, v1);
   if (!isNaN(result)) {
     console.log(result);
-    chartIt(convertDataSet(v0, v1));
+
+    let b11 = b1(v0, v1);
+    let b00 = b0(mean(v0), mean(v1), b1(v0, v1));
+    console.log(b11);
+    console.log(b00);
+    console.log(newY(v0, b00, b11));
+    chartIt(
+      convertDataSet(v0, v1),
+      convertDataSet(v0, newY(v0, b00, b11).reverse())
+    );
   }
 }
 
@@ -143,16 +152,14 @@ function secondHalf(arrX, arrY) {
   return Math.sqrt(sumOfX * sumOfY);
 }
 
-console.log(firstHalf(v0, v1) / secondHalf(v0, v1));
-
-function chartIt(dataset) {
+function chartIt(dataset, datasetNewY) {
   const ctx = document.getElementById("chart").getContext("2d");
-  var scatterChart = new Chart(ctx, {
+  var mixedChart = new Chart(ctx, {
     type: "scatter",
     data: {
       datasets: [
         {
-          label: "Datapoints",
+          label: "Scatter plot",
           data: dataset,
           pointBackgroundColor: function () {
             let color = [];
@@ -162,19 +169,16 @@ function chartIt(dataset) {
             return color;
           },
         },
+        {
+          label: "Line Dataset",
+          data: datasetNewY,
+
+          // Changes this dataset to become a line
+          type: "line",
+        },
       ],
     },
   });
-  options: {
-    scales: {
-      xAxes: [
-        {
-          type: "linear",
-          position: "bottom",
-        },
-      ];
-    }
-  }
 }
 chartIt();
 
@@ -185,4 +189,36 @@ function convertDataSet(axesX, axesY) {
     dataset.push({ x: axesX[i], y: axesY[i] });
   }
   return dataset;
+}
+
+function b1(xArr, yArr) {
+  let slope = firstHalf(xArr, yArr) / secondHalfSlope(xArr);
+  return slope;
+}
+
+function secondHalfSlope(arrX) {
+  let xm = mean(arrX);
+  // FORMULA SQ ( SUM(x - xm)sq * SUM(y - ym)sq )
+  let sumOfX = 0;
+  for (let i = 0; i < arrX.length; i++) {
+    sumOfX += Math.pow(arrX[i] - xm, 2);
+  }
+  return sumOfX;
+}
+
+function b0(xMean, yMean, slope) {
+  // FORMULA b0 = ym - b1*xm
+  let b0 = yMean - slope * xMean;
+  return b0;
+}
+
+let test = [37, 40, 49, 61, 72, 79, 83, 81, 75, 64, 53, 40];
+// New y for every x
+function newY(xArr, b0, b1) {
+  let y = [];
+  // FORMULA y = b0 + b1*x
+  for (let i = 0; i < xArr.length; i++) {
+    y.push(b0 + b1 * xArr[i]);
+  }
+  return y.reverse();
 }
