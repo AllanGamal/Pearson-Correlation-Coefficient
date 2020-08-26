@@ -13,24 +13,48 @@
 <body>
     <h2 class="title">Pearson Correlation Coefficient</h2>
 
-    <table>
-        <tr>
-            <th>Variable 0</th>
-            <th>Variable 1</th>
-        </tr>
+    <div class="container">
 
-        <tr class="dp">
+        <div class="container__table">
 
-            <td>Enter datapoint...</td>
-            <td>Enter datapoint...</td>
+            <button id="add-row">Add row</button>
 
-        </tr>
 
-    </table>
-    <button id="add-row">Add row</button>
-    <button id="calc">Calculate</button>
+            <table>
+                <tr>
+                    <th>Variable 0</th>
+                    <th>Variable 1</th>
+                </tr>
 
-    <canvas id="chart" height="150" width="200"></canvas>
+                <tr class="dp">
+                    <td>Enter datapoint...</td>
+                    <td>Enter datapoint...</td>
+                </tr>
+            </table>
+            <button id="calc">Calculate</button>
+
+            <div class="container__table--results">
+                <div class="b0">
+                    <p>Regression Y Intercept</p>
+                    <h3 id="b0">b0 = </h3>
+                </div>
+
+                <div class="b1">
+                    <p>Regression slope</p>
+                    <h3 id="b1">b1 = </h3>
+                </div>
+
+                <div class="r">
+                    <p>Pearson Correlation Coefficient</p>
+                    <h3 id="r">r = </h3>
+                </div>
+
+            </div>
+        </div>
+        <div class="container__canvas">
+            <canvas id="chart" height="150" width="200"></canvas>
+        </div>
+    </div>
 </body>
 <script src="script.js"></script>
 

@@ -40,7 +40,7 @@ function generateRow() {
 }
 
 // Generate 3 rows
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < 5; i++) {
   generateRow();
 }
 
@@ -94,26 +94,24 @@ function calc() {
   // FORMULA => r = SUM( (x - xm)*(y - ym) ) / ( SQR ( SUM(x - xm)sq * SUM(y - ym)sq ) )
   let result = firstHalf(v0, v1) / secondHalf(v0, v1);
   if (!isNaN(result)) {
-    console.log(result);
-
     let b11 = b1(v0, v1);
     let b00 = b0(mean(v0), mean(v1), b1(v0, v1));
-    console.log(b11);
-    console.log(b00);
-    console.log(newY(v0, b00, b11));
+
     chartIt(
       convertDataSet(v0, v1),
       convertDataSet(v0, newY(v0, b00, b11).reverse())
     );
+    // Show result on page
+    document.querySelector(".container__table--results").style.display = "flex";
+    document.getElementById("b0").innerHTML = "b0 = " + b00.toFixed(3);
+    document.getElementById("b1").innerHTML = "b1 = " + b11.toFixed(3);
+    document.getElementById("r").innerHTML = "r = " + result.toFixed(3);
   }
 }
 
 document.getElementById("calc").addEventListener("click", calc);
 
 //
-
-let v0 = [];
-let v1 = [];
 
 // Calc mean
 function mean(arr) {
@@ -159,19 +157,21 @@ function chartIt(dataset, datasetNewY) {
     data: {
       datasets: [
         {
-          label: "Scatter plot",
+          label: "Scatter Plot",
           data: dataset,
+          pointBackgroundColor: "red",
+        },
+        {
+          label: "Regression Line",
+          data: datasetNewY,
+          backgroundColor: "rgba(255, 0, 0, 0)",
           pointBackgroundColor: function () {
             let color = [];
             for (let i = 0; i < dataset.length; i++) {
-              color.push("red");
+              color.push("rgba(80, 150, 216, 0.1)");
             }
             return color;
           },
-        },
-        {
-          label: "Line Dataset",
-          data: datasetNewY,
 
           // Changes this dataset to become a line
           type: "line",
@@ -212,7 +212,6 @@ function b0(xMean, yMean, slope) {
   return b0;
 }
 
-let test = [37, 40, 49, 61, 72, 79, 83, 81, 75, 64, 53, 40];
 // New y for every x
 function newY(xArr, b0, b1) {
   let y = [];
