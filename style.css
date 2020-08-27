@@ -13,24 +13,71 @@ html {
 
 body {
   background-color: #f7f7f7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1.7rem;
 }
 
 .title {
   margin: 5rem auto;
   text-align: center;
+  font-weight: normal;
 }
 
 table {
   text-align: center;
-  margin: 5rem auto;
+  margin: 2rem auto;
   background-color: #fff;
   border-radius: 2rem;
   background-color: #f0ede5;
   -webkit-box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.23);
           box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.23);
   padding: 2rem;
-  width: 42.4rem;
+  max-width: 42.4rem;
+}
+
+table .scroll {
+  display: block;
+  max-height: 50rem;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(241, 122, 115, 0.884) #f0ede5;
+  scrollbar-shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+table .scroll::-webkit-scrollbar-track {
+  border-radius: 2px;
+  background-color: #f0ede5;
+}
+
+table .scroll::-webkit-scrollbar {
+  width: 0.8rem;
+  background-color: #f5f5f5;
+}
+
+table .scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: rgba(241, 121, 115, 0.884);
+}
+
+table input {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1.7rem;
+  margin: 0 1rem;
+  max-width: 15rem;
+  background-color: inherit;
+  text-align: center;
+}
+
+@media only screen and (max-width: 426px) {
+  table input {
+    max-width: 12rem;
+  }
+}
+
+table tr {
+  position: relative;
 }
 
 table tr:hover > td > .remove-row {
@@ -45,16 +92,53 @@ table th {
   border-bottom: rgba(128, 128, 128, 0.521) solid 2px;
 }
 
-table .dp {
-  font-size: 1.7rem;
-  padding: 1rem;
-}
-
 #add-row,
 #calc {
-  margin: 1rem auto;
-  text-align: center;
-  display: block;
+  margin: 0.5rem;
+  font-size: 1.7rem;
+  padding: 0.7rem;
+  border-radius: 0.2rem;
+  background-color: #f17a73;
+  border: none;
+  color: white;
+  -webkit-transition: all 0.05s;
+  transition: all 0.05s;
+  -webkit-box-shadow: 3px 3px 1rem rgba(128, 55, 51, 0.616);
+          box-shadow: 3px 3px 1rem rgba(128, 55, 51, 0.616);
+}
+
+@media only screen and (max-width: 426px) {
+  #add-row,
+  #calc {
+    margin: 0.3rem;
+    font-size: 1.5rem;
+    padding: 0.4rem;
+  }
+}
+
+@media only screen and (max-width: 426px) {
+  #add-row,
+  #calc {
+    margin: 0.3rem;
+    font-size: 1.4rem;
+    padding: 0.4rem;
+  }
+}
+
+#add-row:hover,
+#calc:hover {
+  -webkit-transform: scale(1.03, 1.03);
+          transform: scale(1.03, 1.03);
+  -webkit-box-shadow: 3px 3px 1rem rgba(197, 88, 82, 0.616);
+          box-shadow: 3px 3px 1rem rgba(197, 88, 82, 0.616);
+}
+
+#add-row:active,
+#calc:active {
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
+  -webkit-box-shadow: 3px 3px 0.5rem rgba(197, 88, 82, 0.616);
+          box-shadow: 3px 3px 0.5rem rgba(197, 88, 82, 0.616);
 }
 
 .remove-row {
@@ -66,37 +150,130 @@ table .dp {
   color: white;
   visibility: hidden;
   position: relative;
-  right: 0.5rem;
+  right: 0.1rem;
   -webkit-box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.274);
           box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.274);
+}
+
+@media only screen and (max-width: 1025px) {
+  .remove-row {
+    visibility: visible;
+  }
+}
+
+@media only screen and (max-width: 363px) {
+  .remove-row {
+    position: absolute;
+    top: 0.7rem;
+    left: -0.5rem;
+  }
 }
 
 .remove-row:hover {
   -webkit-transform: scale(1.1, 1.1);
           transform: scale(1.1, 1.1);
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
+  -webkit-transition: all 0.05s;
+  transition: all 0.05s;
 }
 
 .remove-row:active {
   -webkit-transform: scale(0.9, 0.9);
           transform: scale(0.9, 0.9);
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
-}
-
-input {
-  border: none;
-  padding: 0.5rem;
-  font-size: 1.7rem;
-  margin: 0 1rem;
-  width: 15rem;
-  background-color: inherit;
-  text-align: center;
+  -webkit-transition: all 0.05s;
+  transition: all 0.05s;
 }
 
 .NaN {
-  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
-  box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
+  -webkit-box-shadow: inset 0px 0px 1px 2px rgba(255, 0, 0, 0.486);
+  box-shadow: inset 0px 0px 1px 2px rgba(255, 0, 0, 0.486);
+}
+
+canvas {
+  min-width: 36rem;
+  max-width: 84rem;
+  margin: 1rem auto;
+}
+
+.container__table {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container__table--results {
+  margin: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: none;
+}
+
+.container__table--results div {
+  margin: 0.8rem;
+  text-align: center;
+}
+
+.container__table--results p {
+  font-size: 1.7rem;
+  margin: 0.1rem 0;
+}
+
+.upload {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.upload > * {
+  margin: 1rem;
+  background-color: #42aab6;
+  color: white;
+  border: none;
+  font-size: 1.7rem;
+  border-radius: 0.2rem;
+  -webkit-box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+          box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+  -webkit-transition: all 0.05s;
+  transition: all 0.05s;
+}
+
+.upload > *:hover {
+  -webkit-transform: scale(1.03, 1.03);
+          transform: scale(1.03, 1.03);
+  -webkit-box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+          box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+}
+
+.upload > *:active {
+  -webkit-transform: scale(0.97, 0.97);
+          transform: scale(0.97, 0.97);
+  -webkit-box-shadow: 3px 3px 0.5rem rgba(1, 76, 85, 0.452);
+          box-shadow: 3px 3px 0.5rem rgba(1, 76, 85, 0.452);
+}
+
+.upload #upload {
+  padding: 0.6rem;
+}
+
+.upload input#file {
+  display: none;
+}
+
+.upload input#file + label {
+  padding: 0.7rem;
 }
 /*# sourceMappingURL=style.css.map */

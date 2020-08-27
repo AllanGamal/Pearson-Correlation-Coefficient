@@ -12,13 +12,15 @@ html {
 
 body {
   background-color: rgb(247, 247, 247);
-
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 1.7rem;
 }
 
 .title {
   margin: 5rem auto;
   text-align: center;
+  font-weight: normal;
 }
 
 table {
@@ -30,6 +32,31 @@ table {
   box-shadow: 1rem 1rem 3rem rgba(0, 0, 0, 0.23);
   padding: 2rem;
   max-width: 42.4rem;
+
+  .scroll {
+    display: block;
+    max-height: 50rem;
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(241, 122, 115, 0.884) #f0ede5;
+    scrollbar-shadow-color: rgba(0, 0, 0, 0.3);
+
+    &::-webkit-scrollbar-track {
+      border-radius: 2px;
+      background-color: #f0ede5;
+    }
+
+    &::-webkit-scrollbar {
+      width: 0.8rem;
+      background-color: #f5f5f5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: rgba(241, 121, 115, 0.884);
+    }
+  }
 
   input {
     border: none;
@@ -60,11 +87,6 @@ table {
   th {
     border-bottom: rgba(128, 128, 128, 0.521) solid 2px;
   }
-
-  .dp {
-    font-size: 1.7rem;
-    padding: 1rem;
-  }
 }
 
 #add-row,
@@ -72,7 +94,7 @@ table {
   margin: 0.5rem;
   font-size: 1.7rem;
   padding: 0.7rem;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   background-color: rgb(241, 122, 115);
   border: none;
   color: rgb(255, 255, 255);
@@ -111,14 +133,14 @@ table {
   color: white;
   visibility: hidden;
   position: relative;
-  right: 0.5rem;
+  right: 0.1rem;
   box-shadow: 3px 3px 1rem rgba(0, 0, 0, 0.274);
 
   @media only screen and (max-width: 1025px) {
     visibility: visible;
   }
 
-  @media only screen and (max-width: 426px) {
+  @media only screen and (max-width: 363px) {
     position: absolute;
     top: 0.7rem;
     left: -0.5rem;
@@ -126,19 +148,19 @@ table {
 
   &:hover {
     transform: scale(1.1, 1.1);
-    transition: all 0.1s;
+    transition: all 0.05s;
   }
 
   &:active {
     transform: scale(0.9, 0.9);
-    transition: all 0.1s;
+    transition: all 0.05s;
   }
 }
 
 .NaN {
-  -webkit-box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
-  -moz-box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
-  box-shadow: inset 0px 0px 0px 1px rgba(255, 0, 0, 0.486);
+  -webkit-box-shadow: inset 0px 0px 1px 2px rgba(255, 0, 0, 0.486);
+  -moz-box-shadow: inset 0px 0px 1px 2px rgba(255, 0, 0, 0.486);
+  box-shadow: inset 0px 0px 1px 2px rgba(255, 0, 0, 0.486);
 }
 
 canvas {
@@ -152,12 +174,6 @@ canvas {
     display: flex;
     flex-direction: column;
     align-items: center;
-    &--buttons {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-    }
 
     &--results {
       margin: 2rem;
@@ -176,5 +192,41 @@ canvas {
         margin: 0.1rem 0;
       }
     }
+  }
+}
+.upload {
+  display: flex;
+
+  > * {
+    margin: 1rem;
+    background-color: rgb(66, 170, 182);
+    color: white;
+    border: none;
+    font-size: 1.7rem;
+    border-radius: 0.2rem;
+    box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+    transition: all 0.05s;
+
+    &:hover {
+      transform: scale(1.03, 1.03);
+      box-shadow: 3px 3px 1rem rgba(2, 86, 95, 0.452);
+    }
+
+    &:active {
+      transform: scale(0.97, 0.97);
+      box-shadow: 3px 3px 0.5rem rgba(1, 76, 85, 0.452);
+    }
+  }
+
+  #upload {
+    padding: 0.6rem;
+  }
+
+  input#file {
+    display: none;
+  }
+
+  input#file + label {
+    padding: 0.7rem;
   }
 }

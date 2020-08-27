@@ -19,19 +19,28 @@
 
             <button id="add-row">Add row</button>
 
-
             <table>
-                <tr>
-                    <th>Variable 0</th>
-                    <th>Variable 1</th>
-                </tr>
 
-                <tr class="dp">
-                    <td>Enter datapoint...</td>
-                    <td>Enter datapoint...</td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <th>Variable x</th>
+                        <th>Variable y</th>
+                    </tr>
+                    <tr class="dp">
+                        <td>Enter datapoint...</td>
+                        <td>Enter datapoint...</td>
+                    </tr>
+                </tbody>
+
+
             </table>
+            <div class="upload">
+                <input type="file" id="file" />
+                <label for="file">Choose a CSV-file</label>
+                <input type="button" id="upload" value="Upload" />
+            </div>
             <button id="calc">Calculate</button>
+
 
             <div class="container__table--results">
                 <div class="b0">
