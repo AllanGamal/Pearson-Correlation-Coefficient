@@ -1,8 +1,8 @@
 let rows = [];
 
 // Function generate rows
+
 function generateRow() {
-  let count;
   let table = document.querySelector("table");
   let row = table.insertRow(1);
 
@@ -29,10 +29,16 @@ function generateRow() {
       cell2.appendChild(inputC2);
 
       row.id = i;
+      row.className = "row";
 
       // Remove-btn functionallity
-
       buttonAdd.addEventListener("click", removeBtn);
+
+      // Add scrollbar when many datapoints
+      let tbody = document.querySelector("tbody");
+      if (rows.length >= 15) {
+        tbody.className = "scroll";
+      }
 
       break;
     }
@@ -67,14 +73,27 @@ function removeBtn() {
 // Add functionality to calc-btn
 function calc() {
   let elements = document.getElementsByTagName("input");
-  let test;
+  let tableData = document.querySelectorAll("td");
 
   for (element of elements) {
     let parent = element.parentNode;
-    if (isNaN(element.value) || !element.value) {
-      parent.classList.add("NaN");
-    } else {
-      parent.classList.remove("NaN");
+    for (dataPoint of tableData) {
+      if (element.parentNode == dataPoint) {
+        if (isNaN(element.value) || !element.value) {
+          parent.classList.add("NaN");
+        } else {
+          parent.classList.remove("NaN");
+        }
+      }
+    }
+    if (element.classList === "NaN") {
+    }
+  }
+
+  for (element of elements) {
+    if (element.parentNode.classList == "NaN") {
+      alert("Please enter valid data(numbers)");
+      return false;
     }
   }
 
@@ -220,4 +239,90 @@ function newY(xArr, b0, b1) {
     y.push(b0 + b1 * xArr[i]);
   }
   return y.reverse();
+}
+
+// Upload csv-file to table
+
+function Upload() {
+  let file = document.getElementById("file");
+  let regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
+  if (regex.test(file.value.toLowerCase())) {
+    if (typeof FileReader != "undefined") {
+      let reader = new FileReader();
+      reader.onload = function (e) {
+        let rows = e.target.result.split("\n");
+        let xArr = [];
+        let yArr = [];
+        let arrD = [];
+
+        for (let i = 0; i < rows.length; i++) {
+          let cells = rows[i].split(",");
+          xArr.push(parseFloat(cells[0]));
+          yArr.push(parseFloat(cells[1]));
+        }
+        xArr = xArr.reverse();
+        yArr = yArr.reverse();
+
+        arrD.push(xArr);
+        arrD.push(yArr);
+
+        generateCsvData(arrD);
+      };
+
+      reader.readAsText(file.files[0]);
+    } else {
+      alert("This browser does not support HTML5.");
+    }
+  } else {
+    alert("Please upload a valid CSV file.");
+  }
+}
+
+document.querySelector("#upload").addEventListener("click", Upload);
+
+function generateCsvData(arr) {
+  let tableRows = document.querySelectorAll(".row");
+
+  for (talbeRow of tableRows) {
+    talbeRow.remove();
+  }
+
+  let table = document.querySelector("table");
+  rows = [];
+
+  for (let i = 0; i < arr[0].length; i++) {
+    if (!rows.includes(i)) {
+      let row = table.insertRow(1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      rows.push(i);
+      // Add remove-btn
+      let buttonAdd = document.createElement("button");
+      buttonAdd.setAttribute("class", "remove-row");
+      buttonAdd.innerHTML = "X";
+      cell1.appendChild(buttonAdd);
+
+      // Add input-field c1
+      let inputC1 = document.createElement("input");
+      inputC1.type = "text";
+      inputC1.value = arr[0][i];
+      cell1.appendChild(inputC1);
+
+      // Add input-field
+      let inputC2 = document.createElement("input");
+      inputC2.type = "text";
+      inputC2.value = arr[1][i];
+      cell2.appendChild(inputC2);
+
+      row.id = i;
+      row.className = "row";
+
+      // Remove-btn functionallity
+      buttonAdd.addEventListener("click", removeBtn);
+    }
+  }
+  let tbody = document.querySelector("tbody");
+  if (rows.length >= 20) {
+    tbody.className = "scroll";
+  }
 }
